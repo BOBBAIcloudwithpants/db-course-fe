@@ -1,0 +1,41 @@
+#box{
+  width:300px;
+  height: 300px;
+}
+
+#button-position{
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  bottom: 20%;
+  left: 0%;
+}
+
+#login{
+  position: absolute;
+  left: 20%;
+}
+
+#signup{
+  position: absolute;
+  right: 20%;
+}
+
+#clickbox{
+  position: absolute;
+  width: 100%;
+  height: 15%;
+  font-size: 12px;
+  bottom: 5%;
+}
+
+#admin{
+  position: absolute;
+  top: 10%;
+  left: 30%;
+}
+
+.input-area{
+  width: 95%;
+  margin-top: 20px;
+}
