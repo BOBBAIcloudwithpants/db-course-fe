@@ -41,11 +41,37 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginBoxComponent } from './login-box/login-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailComponent } from './detail/detail.component';
+import { RouterModule, Routes } from '@angular/router';
+import { IndexComponent } from './index/index.component';
 
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'index',
+    pathMatch: 'full'
+  },
+  {
+    path: 'index',
+    component: IndexComponent,
+    data: {
+      title: '登陆界面'
+    }
+  },
+  {
+    path: 'user/:username',
+    component: DetailComponent,
+    data: {
+      title: '用户界面'
+    }
+  }
+];
 @NgModule({
   declarations: [
     AppComponent,
-    LoginBoxComponent
+    LoginBoxComponent,
+    DetailComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +110,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
