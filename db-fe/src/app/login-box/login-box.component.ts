@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { LoginSigninService } from '../login-signin.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login-box',
@@ -8,23 +11,56 @@ import { HttpClient } from "@angular/common/http";
 })
 export class LoginBoxComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient, private service: LoginSigninService, private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   register(username: string, password: string, is_admin: any){
-    console.log(username, password, is_admin);
-    const formData = new URLSearchParams();
-    formData.set('username',username);
-    formData.set('password', password);
-    
-
-
+    const path = '/login/register';
+    let t = 0
+    if(is_admin){
+      t = 1
+    }
+    let data = {
+      username: username,
+      password: password,
+      is_admin: t
+    }
+    this.service.sendPostRequest(data, path).subscribe(res => {
+      if(res.status == 200){
+        this.snackbar.open(res.msg, "close", {
+          duration: 2000
+        })
+      }
+      else{
+        this.snackbar.open(res.msg, "close", {
+          duration: 2000
+        })
+      }
+    })
   }
 
   login(username: string, password: string){
-    console.log(username, password);
+    const path = '/login/';
+
+
+    let data = {
+      username: username,
+      password: password
+    }
+    this.service.sendPostRequest(data, path).subscribe(res => {
+      if(res.status == 200){
+        this.snackbar.open(res.msg, "close", {
+          duration: 2000
+        })
+      }
+      else{
+        this.snackbar.open(res.msg, "close", {
+          duration: 2000
+        })
+      }
+    })
   }
 
 }

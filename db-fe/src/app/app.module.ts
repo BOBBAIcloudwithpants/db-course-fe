@@ -73,7 +73,7 @@ const routes: Routes = [
     AppComponent,
     LoginBoxComponent,
     DetailComponent,
-    IndexComponent
+    IndexComponent,
   ],
   imports: [
     BrowserModule,
