@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { LoginSigninService } from '../login-signin.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-box',
@@ -11,15 +11,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginBoxComponent implements OnInit {
 
-  constructor(private http: HttpClient, private service: LoginSigninService, private snackbar: MatSnackBar) { }
+  constructor(private http: HttpClient, private service: LoginSigninService, private snackbar: MatSnackBar, private route: Router) { }
 
   ngOnInit(): void {
   }
 
-  register(username: string, password: string, is_admin: any){
+  register(username: string, password: string, is_admin: any) {
     const path = '/login/register';
     let t = 0
-    if(is_admin){
+    if (is_admin) {
       t = 1
     }
     let data = {
@@ -28,12 +28,13 @@ export class LoginBoxComponent implements OnInit {
       is_admin: t
     }
     this.service.sendPostRequest(data, path).subscribe(res => {
-      if(res.status == 200){
+      if (res.status == 200) {
         this.snackbar.open(res.msg, "close", {
           duration: 2000
         })
+        this.route.navigateByUrl("/user/" + username);
       }
-      else{
+      else {
         this.snackbar.open(res.msg, "close", {
           duration: 2000
         })
@@ -41,7 +42,7 @@ export class LoginBoxComponent implements OnInit {
     })
   }
 
-  login(username: string, password: string){
+  login(username: string, password: string) {
     const path = '/login/';
 
 
@@ -50,12 +51,14 @@ export class LoginBoxComponent implements OnInit {
       password: password
     }
     this.service.sendPostRequest(data, path).subscribe(res => {
-      if(res.status == 200){
+      if (res.status == 200) {
         this.snackbar.open(res.msg, "close", {
           duration: 2000
         })
+        this.route.navigateByUrl('/user/' + username);
+
       }
-      else{
+      else {
         this.snackbar.open(res.msg, "close", {
           duration: 2000
         })

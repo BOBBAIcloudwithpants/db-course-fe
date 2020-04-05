@@ -1,10 +1,10 @@
 
 .tp-container {
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  top: 64px;
   background: #eee;
 }
 .tp-section {
@@ -14,15 +14,14 @@
   height: 60px;
   width:100px;
 }
-
-.choose{
-  width: 100px;
-  height: 75px;
-  
+.choose {
+  width: 75px;
+  height: 70px;
 }
 
-.mat-raised-button{
-  padding-bottom: 10px;
+.information-bar{
+  width: 75px;
+  height: 100px;
 }
 
 
