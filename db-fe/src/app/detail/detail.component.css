@@ -15,7 +15,15 @@
   width:100px;
 }
 
-.buttons{
-  color: "primary";
-  margin-left: 15px;
+.choose{
+  width: 100px;
+  height: 75px;
+  
 }
+
+.mat-raised-button{
+  padding-bottom: 10px;
+}
+
+
+
