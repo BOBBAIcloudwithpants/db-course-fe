@@ -45,6 +45,7 @@ import { DetailComponent } from './detail/detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
+import { StockComponent } from './stock/stock.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
     LoginBoxComponent,
     DetailComponent,
     IndexComponent,
+    StockComponent,
   ],
   imports: [
     BrowserModule,
