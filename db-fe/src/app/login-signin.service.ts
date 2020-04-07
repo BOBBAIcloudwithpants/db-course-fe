@@ -20,5 +20,9 @@ export class LoginSigninService {
       headers: httpHeaders
      });
   }
+
+  sendGetRequest(path: string): Observable<any> {
+    return this.http.get<any>(url + path)
+  }
   
 }

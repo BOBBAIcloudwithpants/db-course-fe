@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginSigninService } from '../login-signin.service';
 export interface Book {
   name: string;
-  single_price: number;
-  had: number;
-  sold: number;
-  total_sold: number;
+  author: string;
+  press: string;
+  price: number;
 }
 @Component({
   selector: 'app-stock',
@@ -14,10 +14,14 @@ export interface Book {
 export class StockComponent implements OnInit {
 
   books: Book[];
+  columns: string[] = ['name', 'author', 'press', 'price'];
 
-  constructor() { }
+  constructor(private service: LoginSigninService) { }
 
   ngOnInit(): void {
+    this.service.sendGetRequest('/books/').subscribe((res)=> {
+      this.books = res.msg;
+    });
 
   }
 
