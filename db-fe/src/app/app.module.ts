@@ -46,6 +46,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StockComponent } from './stock/stock.component';
+import { BookModule } from './book/book.module';
 
 
 const routes: Routes = [
@@ -67,6 +68,13 @@ const routes: Routes = [
     data: {
       title: '用户界面'
     }
+  },
+  {
+    path: '/books',
+    component: StockComponent,
+    data: {
+      title: '全部书籍'
+    }
   }
 ];
 @NgModule({
@@ -76,6 +84,8 @@ const routes: Routes = [
     DetailComponent,
     IndexComponent,
     StockComponent,
+    BookModule,
+    AppModule
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@
         </mat-expansion-panel-header>
 
         <div class="choose">
-          <button mat-raised-button color="primary"> 1 </button>
+          <button mat-raised-button color="primary" routerLink="/books"> 1 </button>
         </div>
         <div class="choose">
           <button mat-raised-button color="primary"> 2 </button>
@@ -88,5 +88,7 @@
 
 
   </mat-sidenav>
-  <mat-sidenav-content>Main content</mat-sidenav-content>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
