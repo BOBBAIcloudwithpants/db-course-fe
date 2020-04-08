@@ -47,36 +47,10 @@ import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StockComponent } from './stock/stock.component';
 import { BookModule } from './book/book.module';
+import { BookRoutingModule } from './book/book-routing.module';
 
 
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'index',
-    pathMatch: 'full'
-  },
-  {
-    path: 'index',
-    component: IndexComponent,
-    data: {
-      title: '登陆界面'
-    }
-  },
-  {
-    path: 'user/:username',
-    component: DetailComponent,
-    data: {
-      title: '用户界面'
-    }
-  },
-  {
-    path: '/books',
-    component: StockComponent,
-    data: {
-      title: '全部书籍'
-    }
-  }
-];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,12 +58,10 @@ const routes: Routes = [
     DetailComponent,
     IndexComponent,
     StockComponent,
-    BookModule,
-    AppModule
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatBadgeModule,
@@ -125,8 +97,10 @@ const routes: Routes = [
     MatTooltipModule,
     MatTreeModule,
     MatNativeDateModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    BookModule,
+    BookRoutingModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

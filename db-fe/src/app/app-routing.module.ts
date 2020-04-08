@@ -19,20 +19,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'user/:username',
-    component: DetailComponent,
-    data: {
-      title: '用户界面'
-    }
-  },
-  {
-    path: '/books',
-    component: StockComponent,
-    data: {
-      title: '全部书籍'
-    }
-  },
-  {
     path: '**', 
     component : PagenotfoundComponent
   }

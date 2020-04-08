@@ -1,2 +1,94 @@
-<p>books</p>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+
+    <span>图书管理系统</span>
+  
+  </mat-toolbar>
+  <mat-sidenav-container class="tp-container">
+    <mat-sidenav mode="side" color="primary" opened>
+      <div class="information-bar">
+        <span>欢迎</span>
+      </div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              进货
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+  
+          <div class="choose">
+            <button mat-raised-button color="primary" routerLink="/books"> 全部图书详情 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary" routerLink="/books/purchase"> 生成进货单 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 3 </button>
+          </div>
+        </mat-expansion-panel>
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              退货
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+  
+          <div class="choose">
+            <button mat-raised-button color="primary"> 1 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 2 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 3 </button>
+          </div>
+        </mat-expansion-panel>
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              统计
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+  
+          <div class="choose">
+            <button mat-raised-button color="primary"> 1 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 2 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 3 </button>
+          </div>
+        </mat-expansion-panel>
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              销售
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+  
+          <div class="choose">
+            <button mat-raised-button color="primary"> 1 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 2 </button>
+          </div>
+          <div class="choose">
+            <button mat-raised-button color="primary"> 3 </button>
+          </div>
+        </mat-expansion-panel>
+  
+  
+      </mat-accordion>
+  
+  
+  
+  
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
