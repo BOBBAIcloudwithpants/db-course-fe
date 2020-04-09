@@ -3,5 +3,21 @@
   }
 
 table{
-    width: 70%;
+    width: 100%;
+}
+.buttons{
+  width: 100%;
+}
+
+#submit{
+  position: absolute;
+  left: 30%;
+}
+
+#clear{
+  position: absolute;
+  right: 30%;
+}
+mat-form-field {
+  width: 60px;
 }

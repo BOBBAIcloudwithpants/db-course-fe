@@ -9,6 +9,7 @@ export interface Book {
   press: string;
   price: number;
   position: number;
+  buynum: number;
 }
 @Component({
   selector: 'app-book-purchase',
@@ -18,7 +19,7 @@ export interface Book {
 export class BookPurchaseComponent implements OnInit {
   
   books: Book[];
-  columns: string[] = ['name', 'author', 'press', 'price'];
+  columns: string[] = ['select','input','name', 'author', 'press', 'price'];
   dataSource = new MatTableDataSource<Book>(this.books);
   selection = new SelectionModel<Book>(true, []);
 
@@ -49,6 +50,10 @@ export class BookPurchaseComponent implements OnInit {
   constructor(private service: BookService) {
     this.service.sendGetRequest('/books/').subscribe((res)=> {
       this.books = res.msg;
+      this.dataSource = new MatTableDataSource<Book>(this.books);
+      this.selection = new SelectionModel<Book>(true, []);
+      console.log(this.selection)
+
     });
 
    }

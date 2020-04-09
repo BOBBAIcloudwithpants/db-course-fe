@@ -16,31 +16,45 @@
             </mat-checkbox>
         </td>
     </ng-container>
+    <ng-container matColumnDef="input">
+        <th mat-header-cell *matHeaderCellDef> 采购数量 </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-form-field>
+                <input matInput>
+              </mat-form-field>
+        </td>
+    </ng-container>
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef> 书籍名称 </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="author">
-        <th mat-header-cell *matHeaderCellDef> Author </th>
+        <th mat-header-cell *matHeaderCellDef> 作者 </th>
         <td mat-cell *matCellDef="let element"> {{element.author}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="press">
-        <th mat-header-cell *matHeaderCellDef> Press </th>
+        <th mat-header-cell *matHeaderCellDef> 出版社 </th>
         <td mat-cell *matCellDef="let element"> {{element.press}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <th mat-header-cell *matHeaderCellDef> 价格 </th>
         <td mat-cell *matCellDef="let element"> {{element.price}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;"
+      (click)="selection.toggle(row)">
+  </tr>
 </table>
+<div class = "buttons">
+    <button mat-raised-button color="primary" id="submit"> 提交 </button>
+    <button mat-raised-button color="primary" id="clear"> 清空 </button>
+</div>
