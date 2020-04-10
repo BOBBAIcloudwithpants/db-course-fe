@@ -20,7 +20,7 @@
         <th mat-header-cell *matHeaderCellDef> 采购数量 </th>
         <td mat-cell *matCellDef="let element">
             <mat-form-field>
-                <input matInput>
+                <input matInput #num placeholder={{element.name}} type="number" (keyup)="onKey($event, element, num.value)">
               </mat-form-field>
         </td>
     </ng-container>
@@ -55,6 +55,6 @@
   </tr>
 </table>
 <div class = "buttons">
-    <button mat-raised-button color="primary" id="submit"> 提交 </button>
+    <button mat-raised-button color="primary" id="submit" (click) = submitPurchase()> 提交 </button>
     <button mat-raised-button color="primary" id="clear"> 清空 </button>
 </div>

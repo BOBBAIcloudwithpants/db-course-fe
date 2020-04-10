@@ -46,7 +46,14 @@ export class BookPurchaseComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
+  onKey(event: KeyboardEvent, element: any, num: number){
+    element.buynum = num;
+    console.log(element.buynum, num);
+  }
 
+  submitPurchase(){
+    
+  }
   constructor(private service: BookService) {
     this.service.sendGetRequest('/books/').subscribe((res)=> {
       this.books = res.msg;
