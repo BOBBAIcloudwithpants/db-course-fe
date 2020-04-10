@@ -5,19 +5,17 @@
 table{
     width: 100%;
 }
-.buttons{
-  width: 100%;
+
+
+.card{
+  float: right;
+  max-width: 400px;
 }
 
-#submit{
-  position: absolute;
-  left: 30%;
+button{
+  right: -290px;
 }
 
-#clear{
-  position: absolute;
-  right: 30%;
-}
 mat-form-field {
   width: 60px;
 }

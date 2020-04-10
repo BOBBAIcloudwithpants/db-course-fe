@@ -22,7 +22,21 @@ def booksDetail():
     print(out)
     return out
 
+def buyBooks(books):
+    print(books)
+    for book in books:
+        sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had+%s where b.bookname= '%s' and b.press= '%s'" % (book['buynum'], book['name'], book['press'])
+        print(sql)
+        cursor.execute(sql)
+        print("购买书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
 
+def sellBooks(books):
+    print(books)
+    for book in books:
+        sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had-%s where b.bookname= '%s' and b.press= '%s'" % (book['buynum'], book['name'], book['press'])
+        print(sql)
+        cursor.execute(sql)
+        print("卖出书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
 # Create your models here.
 
 class Book(models.Model):

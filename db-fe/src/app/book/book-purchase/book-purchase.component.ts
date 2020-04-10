@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../book.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface Book {
   name: string;
@@ -46,20 +47,30 @@ export class BookPurchaseComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
+
+
   onKey(event: KeyboardEvent, element: any, num: number){
     element.buynum = num;
     console.log(element.buynum, num);
   }
 
   submitPurchase(){
-    
+    console.log(this.selection.selected);
+    this.service.sendPostRequest(this.selection.selected, '/books/buy').subscribe((res) => {
+      console.log(res)
+      if (res.result == 200) {
+        console.log(111);
+        this.snackbar.open(res.msg, "close", {
+          duration: 2000
+        })
+      }
+    });
   }
-  constructor(private service: BookService) {
+  constructor(private service: BookService ,private snackbar: MatSnackBar) {
     this.service.sendGetRequest('/books/').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
       this.selection = new SelectionModel<Book>(true, []);
-      console.log(this.selection)
 
     });
 

@@ -9,3 +9,9 @@ from . import models
 
 def allbooks(request):
     return JsonResponse({'result': 200, 'msg': json.loads(models.booksDetail())}, status=200)
+
+
+def buyBooks(request):
+    req = json.loads(request.body)
+    models.buyBooks(req)
+    return JsonResponse({'result': 200, 'msg': '购买成功'}, status=200)
