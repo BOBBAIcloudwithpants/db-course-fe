@@ -1,5 +1,6 @@
 from django.db import models, connection
 import json
+import time
 cursor = connection.cursor()
 
 def booksDetail(): # 所有图书的详情
@@ -48,7 +49,7 @@ def hadBookDetail(): # 所有仓库中图书的详情
     return out
 
 
-def insertBook(book):
+def insertBook(book): # 在书库中插入新的书籍信息
     sql = "insert into book (bookname, author, press, price) values ('%s', '%s', '%s', '%s')" % (book['name'], book['author'], book['press'], book['price'])
     print(sql)
     cursor.execute(sql)
@@ -58,7 +59,7 @@ def insertBook(book):
 
     print("插入书籍: {} 作者: {} 出版社: {} 价格: {}".format(book['name'], book['author'], book['press'], book['price']))
 
-def buyBooks(books):
+def buyBooks(books): # 从书库中进货
     print(books)
     for book in books:
         sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had+%s where b.bookname= '%s' and b.press= '%s'" % (book['buynum'], book['name'], book['press'])
@@ -66,16 +67,67 @@ def buyBooks(books):
         cursor.execute(sql)
         print("购买书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
 
-def sellBooks(books):
+def sellBooks(books): # 从仓库中购买书籍
     print(books)
-    sql = "set @lastUpdateId := 0;"
-    cursor.execute(sql)
     for book in books:
         sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had-%s, s.book_id = (select @lastUpdateId := s.book_id) where b.bookname= '%s' and b.press= '%s'" % (book['buynum'], book['name'], book['press'])
         print(sql)
         cursor.execute(sql)
-        sql = "select"
+        sql = "insert into sale (book_id, sell_number) values ('%s', '%s')" % (book['book_id'], book['buynum'])
+        print(sql)
+        cursor.execute(sql)
         print("卖出书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
+
+def saleMonthNumber(info):
+    year = info['year']
+    month = info['month']
+    book_id = info['book_id']
+    sql = "select * from sale where book_id = '%s'" % book_id
+    print(sql)
+    cursor.execute(sql)
+    outcome = cursor.fetchall()
+    num = 0
+    for row in outcome:
+        date_string = row[2]
+        pattern = "%Y-%m-%d %H:%M:%S"
+        datetime = time.strptime(date_string, pattern)
+        if(year == datetime.tm_year and month == datetime.tm_mon):
+            num += row[1]
+
+    return num
+
+def saleDayNumber(info):
+    year = info['year']
+    month = info['month']
+    day = info['day']
+    book_id = info['book_id']
+    sql = "select * from sale where book_id = '%s'" % book_id
+    print(sql)
+    cursor.execute(sql)
+    outcome = cursor.fetchall()
+    num = 0
+    for row in outcome:
+        date_string = row[2]
+        pattern = "%Y-%m-%d %H:%M:%S"
+        datetime = time.strptime(date_string, pattern)
+        if (year == datetime.tm_year and month == datetime.tm_mon and day == datetime.tm_mday):
+            num += row[1]
+
+    return num
+
+
+def saleTotalNumber(book):
+    sql = "select * from sale where book_id = '%s'" % book['book_id']
+    print(sql)
+    cursor.execute(sql)
+    outcome = cursor.fetchall()
+
+    num = 0
+    for row in outcome:
+        num += int(row[1])
+
+    return num
+
 
 # Create your models here.
 

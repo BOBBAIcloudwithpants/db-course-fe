@@ -1,12 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
+import { BookService } from '../book.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {BookService} from '../book.service'
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-
 export interface Book {
   book_id: any;
   name: string;
@@ -26,7 +24,7 @@ export interface Book {
 export class BookReturnComponent implements OnInit {
   selection = new SelectionModel<Book>(true, []);
   books: Book[];
-  columns: string[] = ['book_id', 'select','input',,'name', 'author', 'press', 'price', 'had'];
+  columns: string[] = ['book_id', 'select','input','name', 'author', 'press', 'price', 'had'];
   dataSource: MatTableDataSource<Book>;
   constructor(private service: BookService, private snackbar: MatSnackBar) {
     this.service.sendGetRequest('/books/had').subscribe((res)=> {
@@ -61,7 +59,7 @@ export class BookReturnComponent implements OnInit {
 
   submitPurchase(){
     console.log(this.selection.selected);
-    this.service.sendPostRequest(this.selection.selected, '/books/buy').subscribe((res) => {
+    this.service.sendPostRequest(this.selection.selected, '/books/return').subscribe((res) => {
       console.log(res)
       if (res.result == 200) {
         this.snackbar.open(res.msg, "close", {
@@ -81,7 +79,6 @@ export class BookReturnComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
   }
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
