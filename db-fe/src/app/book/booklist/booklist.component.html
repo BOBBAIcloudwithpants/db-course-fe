@@ -1,32 +1,75 @@
-<table mat-table [dataSource]="books" class="mat-elevation-z8">
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+</mat-form-field>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 书名 </th>
+      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
-  
-    <!-- Name Column -->
+
+    <!-- Progress Column -->
     <ng-container matColumnDef="author">
-      <th mat-header-cell *matHeaderCellDef> Author </th>
-      <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 作者 </th>
+      <td mat-cell *matCellDef="let row"> {{row.author}}% </td>
     </ng-container>
-  
-    <!-- Weight Column -->
+
+    <!-- Name Column -->
     <ng-container matColumnDef="press">
-      <th mat-header-cell *matHeaderCellDef> Press </th>
-      <td mat-cell *matCellDef="let element"> {{element.press}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 出版社 </th>
+      <td mat-cell *matCellDef="let row"> {{row.press}} </td>
     </ng-container>
-  
-    <!-- Symbol Column -->
+
+    <!-- Color Column -->
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 价格 </th>
+      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
     </ng-container>
-  
+
+    <ng-container matColumnDef="had">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 库存 </th>
+      <td mat-cell *matCellDef="let row"> {{row.had}} </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;">
+    </tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<div class="example-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>录入您的新书</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field hintLabel="书名，中英皆可" appearance="fill">
+        <mat-label>输入您想要录入的书名</mat-label>
+        <input matInput placeholder="西方哲学史" #bookname>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="书的作者" appearance="fill">
+        <mat-label>输入您想要录入的书的作者</mat-label>
+        <input matInput placeholder="冯友兰" #author>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="书的出版社" appearance="fill">
+        <mat-label>输入您想要录入的书的出版社</mat-label>
+        <input matInput placeholder="人民文学出版社" #press>
+      </mat-form-field>
+
+      <mat-form-field hintLabel="书的价格" appearance="fill">
+        <mat-label>输入您想要录入的书的定价</mat-label>
+        <input matInput placeholder="58" #price>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" id="submit" (click)="insertBook(bookname.value, author.value, press.value, price.value)"> 提交 </button>
+    </mat-card-content>
+
+  </mat-card>
+</div>

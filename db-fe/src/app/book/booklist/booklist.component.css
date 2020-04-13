@@ -1,7 +1,16 @@
-.mat-sort-header-container {
-    align-items: center;
-  }
+table {
+  width: 100%;
+}
 
-table{
-    width: 70%;
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
 }

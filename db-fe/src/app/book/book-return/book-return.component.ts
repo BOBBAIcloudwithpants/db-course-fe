@@ -1,10 +1,12 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
-import { BookService } from '../book.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {BookService} from '../book.service'
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 export interface Book {
   book_id: any;
   name: string;
@@ -15,19 +17,19 @@ export interface Book {
   position: number;
   buynum: number;
 }
+
 @Component({
-  selector: 'app-book-purchase',
-  templateUrl: './book-purchase.component.html',
-  styleUrls: ['./book-purchase.component.css']
+  selector: 'app-book-return',
+  templateUrl: './book-return.component.html',
+  styleUrls: ['./book-return.component.css']
 })
-export class BookPurchaseComponent implements OnInit {
-  
+export class BookReturnComponent implements OnInit {
   selection = new SelectionModel<Book>(true, []);
   books: Book[];
-  columns: string[] = ['book_id', 'select','input','name', 'author', 'press', 'price', 'had'];
+  columns: string[] = ['book_id', 'select','input',,'name', 'author', 'press', 'price', 'had'];
   dataSource: MatTableDataSource<Book>;
   constructor(private service: BookService, private snackbar: MatSnackBar) {
-    this.service.sendGetRequest('/books/').subscribe((res)=> {
+    this.service.sendGetRequest('/books/had').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
     this.dataSource.paginator = this.paginator;
@@ -59,7 +61,7 @@ export class BookPurchaseComponent implements OnInit {
 
   submitPurchase(){
     console.log(this.selection.selected);
-    this.service.sendPostRequest(this.selection.selected, '/books/').subscribe((res) => {
+    this.service.sendPostRequest(this.selection.selected, '/books/buy').subscribe((res) => {
       console.log(res)
       if (res.result == 200) {
         this.snackbar.open(res.msg, "close", {
@@ -79,6 +81,7 @@ export class BookPurchaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
@@ -88,5 +91,4 @@ applyFilter(event: Event) {
     this.dataSource.paginator.firstPage();
   }
 }
-
 }

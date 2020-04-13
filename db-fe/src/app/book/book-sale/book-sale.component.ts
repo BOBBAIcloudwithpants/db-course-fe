@@ -15,19 +15,22 @@ export interface Book {
   position: number;
   buynum: number;
 }
+
+
+
 @Component({
-  selector: 'app-book-purchase',
-  templateUrl: './book-purchase.component.html',
-  styleUrls: ['./book-purchase.component.css']
+  selector: 'app-book-sale',
+  templateUrl: './book-sale.component.html',
+  styleUrls: ['./book-sale.component.css']
 })
-export class BookPurchaseComponent implements OnInit {
-  
+export class BookSaleComponent implements OnInit {
+
   selection = new SelectionModel<Book>(true, []);
   books: Book[];
   columns: string[] = ['book_id', 'select','input','name', 'author', 'press', 'price', 'had'];
   dataSource: MatTableDataSource<Book>;
   constructor(private service: BookService, private snackbar: MatSnackBar) {
-    this.service.sendGetRequest('/books/').subscribe((res)=> {
+    this.service.sendGetRequest('/books/had').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
     this.dataSource.paginator = this.paginator;
@@ -46,8 +49,14 @@ export class BookPurchaseComponent implements OnInit {
   }
 
   onKey(event: KeyboardEvent, element: any, num: number){
+    if(num >= element.had || num < 0){
+      alert("请输入大于等于０并且小于库存量："+element.had+" 的整数");
+      element.buynum = 0;
+      num = 0;
+    }
     element.buynum = num;
     console.log(element.buynum, num);
+
   }
 
   checkboxLabel(row?: Book): string {
@@ -59,7 +68,7 @@ export class BookPurchaseComponent implements OnInit {
 
   submitPurchase(){
     console.log(this.selection.selected);
-    this.service.sendPostRequest(this.selection.selected, '/books/').subscribe((res) => {
+    this.service.sendPostRequest(this.selection.selected, '/books/sell').subscribe((res) => {
       console.log(res)
       if (res.result == 200) {
         this.snackbar.open(res.msg, "close", {

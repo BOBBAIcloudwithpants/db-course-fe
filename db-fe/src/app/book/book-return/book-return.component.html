@@ -20,7 +20,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="input">
-            <th mat-header-cell *matHeaderCellDef> 进货数量 </th>
+            <th mat-header-cell *matHeaderCellDef> 退货数量 </th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field class="return_num">
                     <input matInput #num placeholder={{element.buynum}} type="number"
@@ -28,7 +28,7 @@
                 </mat-form-field>
             </td>
         </ng-container>
-        <!-- ID Column -->
+        <!-- ID Column --> 
         <ng-container matColumnDef="book_id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 书籍ID </th>
             <td mat-cell *matCellDef="let row"> {{row.book_id}} </td>
@@ -56,7 +56,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 价格 </th>
             <td mat-cell *matCellDef="let row"> {{row.price}} </td>
         </ng-container>
-
+        
         <ng-container matColumnDef="had">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> 库存 </th>
             <td mat-cell *matCellDef="let row"> {{row.had}} </td>
@@ -83,3 +83,4 @@
     </mat-card-content>
     
 </mat-card>
+

@@ -40,9 +40,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { BookPurchaseComponent } from './book-purchase/book-purchase.component';
+import { BookReturnComponent } from './book-return/book-return.component';
+import { BookSaleComponent } from './book-sale/book-sale.component';
 
 @NgModule({
-  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent],
+  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent, BookReturnComponent, BookSaleComponent],
   imports: [
     CommonModule,
     BookRoutingModule,

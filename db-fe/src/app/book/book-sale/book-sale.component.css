@@ -1,0 +1,21 @@
+.mat-sort-header-container {
+    align-items: center;
+  }
+
+table{
+    width: 100%;
+}
+
+
+.card{
+  float: right;
+  max-width: 400px;
+}
+
+button{
+  right: -290px;
+}
+
+mat-form-field {
+  width: 60px;
+}
