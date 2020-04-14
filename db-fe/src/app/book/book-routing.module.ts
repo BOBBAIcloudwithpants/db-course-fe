@@ -5,6 +5,7 @@ import { BooklistComponent } from './booklist/booklist.component';
 import { BookPurchaseComponent } from './book-purchase/book-purchase.component';
 import { BookReturnComponent } from './book-return/book-return.component';
 import { BookSaleComponent } from './book-sale/book-sale.component';
+import { BookStaticComponent } from './book-static/book-static.component';
 
 
 
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'sale',
         component: BookSaleComponent
+      },
+      {
+        path: 'test',
+        component: BookStaticComponent
       }
     ]
   }

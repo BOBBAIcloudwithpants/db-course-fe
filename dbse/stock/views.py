@@ -26,3 +26,19 @@ def sellBooks(request):
     req = json.loads(request.body)
     models.sellBooks(req)
     return JsonResponse({'result': 200, 'msg': '卖出成功'}, status=200)
+
+def getMonthSale(request):
+    req = json.loads((request.body))
+    return JsonResponse({'result': 200, 'msg': models.saleMonthNumber(req)}, status=200)
+
+def getDaySale(request):
+    req = json.loads((request.body))
+    return JsonResponse({'result': 200, 'msg': models.saleDayNumber(req)}, status=200)
+
+def getTotalSale(request):
+    req = json.loads((request.body))
+    return JsonResponse({'result': 200, 'msg': models.saleTotalNumber(req)}, status=200)
+
+
+
+

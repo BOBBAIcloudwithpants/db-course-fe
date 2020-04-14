@@ -42,9 +42,11 @@ import { MatTreeModule } from '@angular/material/tree';
 import { BookPurchaseComponent } from './book-purchase/book-purchase.component';
 import { BookReturnComponent } from './book-return/book-return.component';
 import { BookSaleComponent } from './book-sale/book-sale.component';
+import { BookStaticComponent } from './book-static/book-static.component';
+import { BookStaticTotalComponent } from './book-static-total/book-static-total.component';
 
 @NgModule({
-  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent, BookReturnComponent, BookSaleComponent],
+  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent, BookReturnComponent, BookSaleComponent, BookStaticComponent, BookStaticTotalComponent],
   imports: [
     CommonModule,
     BookRoutingModule,

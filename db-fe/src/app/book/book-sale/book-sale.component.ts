@@ -17,7 +17,6 @@ export interface Book {
 }
 
 
-
 @Component({
   selector: 'app-book-sale',
   templateUrl: './book-sale.component.html',
