@@ -1,1 +1,169 @@
-<p>book-static-total works!</p>
+<mat-card class="card_top">
+  <mat-card-header>
+    <mat-card-title>选择统计日期</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="example-full-width">
+      <mat-label>起始日期</mat-label>
+      <input matInput [matDatepicker]="picker1" />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>结束日期</mat-label>
+      <input matInput [matDatepicker]="picker2" />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      id="submit"
+      (click)="submitInterval(picker1, picker2)"
+    >
+      提交
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="card_total">
+  <mat-card-header>
+    <mat-card-title>总销量统计</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="display_area">
+        <div id="graph_total"></div>
+    </div>
+    <div class="button_area">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToBing()"
+      >
+        切换成饼图
+      </button>
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToZhu()"
+      >
+        切换成柱状图
+      </button>
+      <br />
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="card_day">
+  <mat-card-header>
+    <mat-card-title>按天统计</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="display_area">
+    <div id="graph_day"></div>
+    <div class="button_area">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToLine('graph_day')"
+      >
+        切换成折线图
+      </button>
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToDot('graph_day')"
+      >
+        切换成点图
+      </button>
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToArea('graph_day')"
+      >
+        切换成面积图
+      </button>
+    </div>
+      </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="card_month">
+  <mat-card-header>
+    <mat-card-title>按月统计</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="display_area">
+    <div id="graph_month"></div>
+    <div class="button_area">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToLine('graph_month')"
+      >
+        切换成折线图
+      </button>
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToDot('graph_month')"
+      >
+        切换成点图
+      </button>
+      <br />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="changeToArea('graph_month')"
+      >
+        切换成面积图
+      </button>
+    </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="card_year">
+  <mat-card-header>
+    <mat-card-title>按年统计</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="display_area">
+      <div id="graph_year"></div>
+      <div class="button_area">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="changeToLine('graph_year')"
+        >
+          切换成折线图
+        </button>
+        <br />
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="changeToDot('graph_year')"
+        >
+          切换成点图
+        </button>
+        <br />
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="changeToArea('graph_year')"
+        >
+          切换成面积图
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

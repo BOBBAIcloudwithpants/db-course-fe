@@ -27,17 +27,28 @@ def sellBooks(request):
     models.sellBooks(req)
     return JsonResponse({'result': 200, 'msg': '卖出成功'}, status=200)
 
+def getYearSale(request):
+    req = json.loads((request.body))
+    return JsonResponse({'result': 200, 'msg': json.loads(models.saleYearNumber(req))}, status=200)
 def getMonthSale(request):
     req = json.loads((request.body))
-    return JsonResponse({'result': 200, 'msg': models.saleMonthNumber(req)}, status=200)
+    return JsonResponse({'result': 200, 'msg': json.loads(models.saleMonthNumber(req))}, status=200)
 
 def getDaySale(request):
     req = json.loads((request.body))
-    return JsonResponse({'result': 200, 'msg': models.saleDayNumber(req)}, status=200)
+    return JsonResponse({'result': 200, 'msg': json.loads(models.saleDayNumber(req))}, status=200)
 
 def getTotalSale(request):
     req = json.loads((request.body))
-    return JsonResponse({'result': 200, 'msg': models.saleTotalNumber(req)}, status=200)
+    return JsonResponse({'result': 200, 'msg': json.loads(models.saleTotalNumber(req))}, status=200)
+
+def getTotalStatic(request):
+    req = json.loads(request.body)
+    return JsonResponse({'result': 200, 'msg': json.loads(models.intervalSaleNumber(req))}, status=200)
+
+def getTotalSaleForAllBooks(request):
+    req = json.loads(request.body)
+    return JsonResponse({'result': 200, 'msg': json.loads(models.saleTotalNumberOfAllBooks(req))}, status=200)
 
 
 

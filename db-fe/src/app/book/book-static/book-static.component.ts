@@ -28,7 +28,7 @@ export interface Book {
 export class BookStaticComponent implements OnInit {
   selection = new SelectionModel<Book>(true, []);
   books: Book[];
-  columns: string[] = ['book_id', 'name', 'author', 'press', 'price', 'had', 'day', 'month'];
+  columns: string[] = ['book_id', 'name', 'author', 'press', 'price', 'had', 'day', 'month', 'year'];
   dataSource: MatTableDataSource<Book>;
   constructor(private service: BookService, private snackbar: MatSnackBar) {
     this.service.sendGetRequest('/books/had').subscribe((res)=> {
@@ -43,6 +43,18 @@ export class BookStaticComponent implements OnInit {
    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
    @ViewChild(MatSort, {static: true}) sort: MatSort;
  
+   getYear(book_id: any){
+
+   }
+
+   getMonth(book_id: any){
+
+  }
+
+   getDay(book_id: any){
+     
+   }
+
    isAllSelected() {
      const numSelected = this.selection.selected.length;
      const numRows = this.dataSource.data.length;

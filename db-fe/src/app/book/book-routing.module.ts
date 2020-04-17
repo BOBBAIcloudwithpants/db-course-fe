@@ -6,6 +6,7 @@ import { BookPurchaseComponent } from './book-purchase/book-purchase.component';
 import { BookReturnComponent } from './book-return/book-return.component';
 import { BookSaleComponent } from './book-sale/book-sale.component';
 import { BookStaticComponent } from './book-static/book-static.component';
+import { BookStaticTotalComponent } from './book-static-total/book-static-total.component';
 
 
 
@@ -31,8 +32,12 @@ const routes: Routes = [
         component: BookSaleComponent
       },
       {
-        path: 'test',
+        path: 'static',
         component: BookStaticComponent
+      },
+      {
+        path: 'total',
+        component: BookStaticTotalComponent
       }
     ]
   }
