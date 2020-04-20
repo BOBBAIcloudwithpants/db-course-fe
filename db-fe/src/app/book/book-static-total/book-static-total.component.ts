@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { BookService } from '../book.service';
 import { Chart } from '@antv/g2';
+import { MatTableDataSource } from '@angular/material/table';
+export interface Book {
+  bookname: string;
+  sale: number;
+  date: number;
+}
 
 @Component({
   selector: 'app-book-static-total',
@@ -17,7 +23,14 @@ export class BookStaticTotalComponent implements OnInit {
   months;
   years;
   total;
-
+  book: Book[];
+  displayedColumns: string[] = [
+    'rank',
+    'bookname',
+    'sale'
+  ]
+  dataSource: MatTableDataSource<Book>;
+  columnsToDisplay: string[] = this.displayedColumns.slice()
   changeToArea(type: string) {
     if (type == 'graph_year') {
       this.chart_year.clear();
@@ -208,7 +221,7 @@ export class BookStaticTotalComponent implements OnInit {
       this.months = res.msg.month_sale;
       this.days = res.msg.day_sale;
       this.total = res.msg.total_sale;
-
+      this.book = res.msg.total_sale;
       this.chart_day.data(this.days);
       this.chart_month.data(this.months);
       this.chart_year.data(this.years);

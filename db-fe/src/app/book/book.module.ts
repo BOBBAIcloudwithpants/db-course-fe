@@ -44,9 +44,10 @@ import { BookReturnComponent } from './book-return/book-return.component';
 import { BookSaleComponent } from './book-sale/book-sale.component';
 import { BookStaticComponent } from './book-static/book-static.component';
 import { BookStaticTotalComponent } from './book-static-total/book-static-total.component';
+import { BookDialogComponent } from './book-dialog/book-dialog.component';
 
 @NgModule({
-  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent, BookReturnComponent, BookSaleComponent, BookStaticComponent, BookStaticTotalComponent],
+  declarations: [BookComponent, BooklistComponent, BookPurchaseComponent, BookReturnComponent, BookSaleComponent, BookStaticComponent, BookStaticTotalComponent, BookDialogComponent],
   imports: [
     CommonModule,
     BookRoutingModule,
@@ -85,8 +86,9 @@ import { BookStaticTotalComponent } from './book-static-total/book-static-total.
     MatTooltipModule,
     MatTreeModule,
     MatNativeDateModule,
-    
+    MatTableModule
   ],
+  exports: [MatTableModule]
 
 })
 export class BookModule { }

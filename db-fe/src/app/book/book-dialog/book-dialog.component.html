@@ -1,0 +1,12 @@
+<h3>进货(退货)单 刷新浏览器后即可查看库存变化</h3>
+<table mat-table [dataSource]="book" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+
+  <button mat-button (click)="onNoClick()">关闭</button>

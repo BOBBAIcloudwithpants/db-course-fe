@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {BookDialogComponent} from '../book-dialog/book-dialog.component'
+
 export interface Book {
   book_id: any;
   name: string;
@@ -26,7 +29,7 @@ export class BookReturnComponent implements OnInit {
   books: Book[];
   columns: string[] = ['book_id', 'select','input','name', 'author', 'press', 'price', 'had'];
   dataSource: MatTableDataSource<Book>;
-  constructor(private service: BookService, private snackbar: MatSnackBar) {
+  constructor(private service: BookService, private snackbar: MatSnackBar, public dialog: MatDialog) {
     this.service.sendGetRequest('/books/had').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
@@ -62,8 +65,14 @@ export class BookReturnComponent implements OnInit {
     this.service.sendPostRequest(this.selection.selected, '/books/return').subscribe((res) => {
       console.log(res)
       if (res.result == 200) {
-        this.snackbar.open(res.msg, "close", {
+        this.snackbar.open('退货成功', "close", {
           duration: 2000
+        })
+
+        let dialogRef = this.dialog.open(BookDialogComponent, {
+          width: "700px",
+          height: "700px",
+          data: this.selection.selected
         })
       }else{
         this.snackbar.open(res.msg, "close", {

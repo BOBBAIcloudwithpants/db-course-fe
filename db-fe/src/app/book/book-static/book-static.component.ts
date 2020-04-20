@@ -1,12 +1,13 @@
 import { Chart } from '@antv/g2'
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, OnInit , ViewChild} from '@angular/core';
+import { OnInit , ViewChild, Component, Inject} from '@angular/core';
 import { BookService } from '../book.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 export interface Book {
   book_id: any;
   name: string;
@@ -30,8 +31,8 @@ export class BookStaticComponent implements OnInit {
   books: Book[];
   columns: string[] = ['book_id', 'name', 'author', 'press', 'price', 'had', 'day', 'month', 'year'];
   dataSource: MatTableDataSource<Book>;
-  constructor(private service: BookService, private snackbar: MatSnackBar) {
-    this.service.sendGetRequest('/books/had').subscribe((res)=> {
+  constructor(private service: BookService, private snackbar: MatSnackBar, public dialog: MatDialog) {
+    this.service.sendGetRequest('/books').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
     this.dataSource.paginator = this.paginator;
@@ -45,14 +46,44 @@ export class BookStaticComponent implements OnInit {
  
    getYear(book_id: any){
 
+    let temp = {
+      book_id: book_id
+    }
+    this.service.sendPostRequest(temp, '/books/year').subscribe((res) => {
+      let dialogRef = this.dialog.open(BookStaticDialog, {
+        width: "500px",
+        height: "500px",
+        data: res.msg
+      })
+    })
+
    }
 
    getMonth(book_id: any){
+    let temp = {
+      book_id: book_id
+    }
+    this.service.sendPostRequest(temp, '/books/month').subscribe((res) => {
+      let dialogRef = this.dialog.open(BookStaticDialog, {
+        width: "500px",
+        height: "500px",
+        data: res.msg
+      })
+    })
 
   }
 
    getDay(book_id: any){
-     
+    let temp = {
+      book_id: book_id
+    }
+    this.service.sendPostRequest(temp, '/books/day').subscribe((res) => {
+      let dialogRef = this.dialog.open(BookStaticDialog, {
+        width: "500px",
+        height: "500px",
+        data: res.msg
+      })
+    })
    }
 
    isAllSelected() {
@@ -113,9 +144,34 @@ export class BookStaticComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  
-
-
-
 }
+
+@Component({
+  selector: 'book-static-dialog',
+  templateUrl: 'book-static-dialog.html',
+})
+
+export class BookStaticDialog implements OnInit{
+  chart: Chart
+  constructor(
+    public dialogRef: MatDialogRef<BookStaticDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any){
+      
+    }
+    ngOnInit(): void {
+      console.log(this.data)
+      this.chart = new Chart({
+        container: 'dialog',
+        width: 400,
+        height: 400
+        
+      })
+      this.chart.data(this.data)
+      this.chart.line().position('submit_at*sale').color('bookname');
+      this.chart.render()
+    }
+    onNoClick(): void {
+      this.dialogRef.close()
+    }
+}
+

@@ -22,20 +22,25 @@ def buyBooks(request):
     models.buyBooks(req)
     return JsonResponse({'result': 200, 'msg': '购买成功'}, status=200)
 
+def returnBooks(request):
+    req = json.loads(request.body)
+    models.returnBooks(req)
+    return JsonResponse({'result': 200, 'msg': '退货成功'}, status=200)
+
 def sellBooks(request):
     req = json.loads(request.body)
     models.sellBooks(req)
     return JsonResponse({'result': 200, 'msg': '卖出成功'}, status=200)
 
 def getYearSale(request):
-    req = json.loads((request.body))
+    req = json.loads(request.body)
     return JsonResponse({'result': 200, 'msg': json.loads(models.saleYearNumber(req))}, status=200)
 def getMonthSale(request):
-    req = json.loads((request.body))
+    req = json.loads(request.body)
     return JsonResponse({'result': 200, 'msg': json.loads(models.saleMonthNumber(req))}, status=200)
 
 def getDaySale(request):
-    req = json.loads((request.body))
+    req = json.loads(request.body)
     return JsonResponse({'result': 200, 'msg': json.loads(models.saleDayNumber(req))}, status=200)
 
 def getTotalSale(request):

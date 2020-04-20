@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {BookDialogComponent} from '../book-dialog/book-dialog.component'
+
 export interface Book {
   book_id: any;
   name: string;
@@ -28,7 +31,7 @@ export class BookSaleComponent implements OnInit {
   books: Book[];
   columns: string[] = ['book_id', 'select','input','name', 'author', 'press', 'price', 'had'];
   dataSource: MatTableDataSource<Book>;
-  constructor(private service: BookService, private snackbar: MatSnackBar) {
+  constructor(private service: BookService, private snackbar: MatSnackBar, public dialog: MatDialog) {
     this.service.sendGetRequest('/books/had').subscribe((res)=> {
       this.books = res.msg;
       this.dataSource = new MatTableDataSource<Book>(this.books);
@@ -73,6 +76,12 @@ export class BookSaleComponent implements OnInit {
         this.snackbar.open(res.msg, "close", {
           duration: 2000
         })
+        let dialogRef = this.dialog.open(BookDialogComponent, {
+          width: "700px",
+          height: "700px",
+          data: this.selection.selected
+        })
+
       }else{
         this.snackbar.open(res.msg, "close", {
           duration: 2000

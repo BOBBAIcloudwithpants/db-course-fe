@@ -25,6 +25,9 @@ def booksDetail(): # 所有图书的详情
     print(out)
     return out
 
+
+
+
 def hadBookDetail(): # 所有仓库中图书的详情
     sql = "select book_id, bookname, author, press, price, had from book natural join storage order by had desc;"
     cursor.execute(sql)
@@ -58,6 +61,17 @@ def insertBook(book): # 在书库中插入新的书籍信息
     cursor.execute(sql)
 
     print("插入书籍: {} 作者: {} 出版社: {} 价格: {}".format(book['name'], book['author'], book['press'], book['price']))
+def returnBooks(books):
+
+    for book in books:
+        sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had+%s where b.bookname= '%s' and b.press= '%s'" % (
+    book['buynum'], book['name'], book['press'])
+        print(sql)
+        cursor.execute(sql)
+        sql = "insert into back (book_id, back_number) values ('%s', '%s')" % (book['book_id'], book['buynum'])
+        print(sql)
+        cursor.execute(sql)
+        print("退还书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
 
 def buyBooks(books): # 从书库中进货
     print(books)
@@ -65,7 +79,10 @@ def buyBooks(books): # 从书库中进货
         sql = "update storage s left join book b on s.book_id=b.book_id set s.had=s.had+%s where b.bookname= '%s' and b.press= '%s'" % (book['buynum'], book['name'], book['press'])
         print(sql)
         cursor.execute(sql)
-        print("购买书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
+        sql = "insert into stock (book_id, stock_number) values ('%s', '%s')" % (book['book_id'], book['buynum'])
+        print(sql)
+        cursor.execute(sql)
+        print("进货书籍: {} 出版社: {} 数量: {} 成功".format(book['name'], book['press'], book['buynum']))
 
 def sellBooks(books): # 从仓库中购买书籍
     print(books)
@@ -90,7 +107,7 @@ def saleYearNumber(info):
     year_sale = []
 
     if len(outcome) == 0:
-        return ''
+        return json.dumps(year_sale, ensure_ascii=False)
 
     mark_year = (time.strptime(outcome[0][3], pattern)).tm_year
     temp_sale = 0
@@ -131,7 +148,7 @@ def saleMonthNumber(info):
     month_sale = []
 
     if len(outcome) == 0:
-        return ''
+        return json.dumps(month_sale, ensure_ascii=False)
 
     mark_year = (time.strptime(outcome[0][3], pattern)).tm_year
     mark_month = (time.strptime(outcome[0][3], pattern)).tm_mon
@@ -175,7 +192,7 @@ def saleDayNumber(info):
     day_sale = []
 
     if len(outcome) == 0:
-        return ''
+        return json.dumps(day_sale, ensure_ascii=False)
 
     mark_year = (time.strptime(outcome[0][3], pattern)).tm_year
     mark_month = (time.strptime(outcome[0][3], pattern)).tm_mon
@@ -246,10 +263,20 @@ def saleTotalNumberOfAllBooks(info):
                 temp_num = outcome[j][2]
                 break
         i = j
+
+    total_sale.sort(key=takeSale, reverse=True)
+
+    i = 1
+    for item in total_sale:
+        item['rank'] = i
+        i += 1
+
     total_sale = json.dumps(total_sale, ensure_ascii=False)
+
     return total_sale
 
-
+def takeSale(elem):
+    return elem['sale']
 
 def intervalSaleNumber(info):
     start_date = info['start']
@@ -446,6 +473,13 @@ def intervalSaleNumber(info):
     year_sale.sort(key=takeDate)
     month_sale.sort(key=takeDate)
     day_sale.sort(key=takeDate)
+
+    total_sale.sort(key=takeSale, reverse=True)
+
+    i = 1
+    for item in total_sale:
+        item['rank'] = i
+        i += 1
     final = {}
     final['year_sale'] = year_sale
     final['month_sale'] = month_sale

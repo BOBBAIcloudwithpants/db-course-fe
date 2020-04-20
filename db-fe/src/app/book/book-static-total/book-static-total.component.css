@@ -4,3 +4,14 @@
     top: 5%;
     left: 600px;
 }
+
+.rank{
+    position: absolute;
+    top: 5%;
+    left: 800px;
+   
+}
+
+table{
+    width: 500px;
+}
